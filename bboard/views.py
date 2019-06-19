@@ -6,10 +6,11 @@ from .models import Bb, Rubric
 # Create your views here.
 
 def index(request):
-    template = loader.get_template('bboard/index.html')
+    # template = loader.get_template('bboard/index.html')
     bbs = Bb.objects.all()
-    content = {'bbs': bbs}
-    return HttpResponse(template.render(content, request))
+    rubrics = Rubric.objects.all()
+    context = {'bbs':bbs, 'rubrics': rubrics}
+    return render(request, 'bboard/index.html', context)
 
 def by_rubric(requset, rubric_id):
     bbs = Bb.objects.filter(rubric=rubric_id)
